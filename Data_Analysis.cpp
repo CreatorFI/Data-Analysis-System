@@ -46,8 +46,14 @@ void readInformations(Student *Student1)
     }
     fclose(fp);
 }
-void sortArray(Student *Student, int n){
-    int i,j;
+void findSameTotalGPAHolders(Student *Student, int n)
+{
+    FILE *fp;
+    fp = fopen("total_gpa_analysis.txt", "w");
+    fprintf(fp, "\n...Total GPA ANALYSIS...\n");
+
+    fprintf(fp, "============================\n");
+    int i, j;
     double temp;
     char tempName[100];
     int tempID;
@@ -55,19 +61,11 @@ void sortArray(Student *Student, int n){
     {
         for (j = i + 1; j < n; j++)
         {
-            if (Student[i].totalGPA < Student[j].totalGPA && Student[i].sscGPA < Student[j].sscGPA && Student[i].hscGPA < Student[j].hscGPA )
+            if (Student[i].totalGPA < Student[j].totalGPA)
             {
                 temp = Student[i].totalGPA;
                 Student[i].totalGPA = Student[j].totalGPA;
                 Student[j].totalGPA = temp;
-                temp =0;
-                temp = Student[i].sscGPA;
-                Student[i].sscGPA = Student[j].sscGPA;
-                Student[j].sscGPA = temp;
-                temp=0;
-                temp = Student[i].hscGPA;
-                Student[i].hscGPA = Student[j].hscGPA;
-                Student[j].hscGPA = temp;
                 strcpy(tempName, Student[i].name);
                 strcpy(Student[i].name, Student[j].name);
                 strcpy(Student[j].name, tempName);
@@ -77,34 +75,6 @@ void sortArray(Student *Student, int n){
             }
         }
     }
-}
-void findSameTotalGPAHolders(Student *Student, int n)
-{
-    FILE *fp;
-    fp = fopen("total_gpa_analysis.txt", "w");
-    fprintf(fp, "\n...Total GPA ANALYSIS...\n");
-
-    fprintf(fp, "============================\n");
-    int i, j;
-    
-    // for (i = 0; i < n; i++)
-    // {
-    //     for (j = i + 1; j < n; j++)
-    //     {
-    //         if (Student[i].totalGPA < Student[j].totalGPA)
-    //         {
-    //             temp = Student[i].totalGPA;
-    //             Student[i].totalGPA = Student[j].totalGPA;
-    //             Student[j].totalGPA = temp;
-    //             strcpy(tempName, Student[i].name);
-    //             strcpy(Student[i].name, Student[j].name);
-    //             strcpy(Student[j].name, tempName);
-    //             tempID = Student[i].id;
-    //             Student[i].id = Student[j].id;
-    //             Student[j].id = tempID;
-    //         }
-    //     }
-    // }
     double currentValue = 0;
     double previousValue = 0;
     double nextValue = 0;
@@ -141,24 +111,24 @@ void findSameSSCGpaHolders(Student *Student, int n)
     int tempID;
     fprintf(fp, "\n...SSC GPA ANALYSIS...\n");
     fprintf(fp, "============================\n");
-    // for (i = 0; i < n; i++)
-    // {
-    //     for (j = i + 1; j < n; j++)
-    //     {
-    //         if (Student[i].sscGPA < Student[j].sscGPA)
-    //         {
-    //             temp = Student[i].sscGPA;
-    //             Student[i].sscGPA = Student[j].sscGPA;
-    //             Student[j].sscGPA = temp;
-    //             strcpy(tempName, Student[i].name);
-    //             strcpy(Student[i].name, Student[j].name);
-    //             strcpy(Student[j].name, tempName);
-    //             tempID = Student[i].id;
-    //             Student[i].id = Student[j].id;
-    //             Student[j].id = tempID;
-    //         }
-    //     }
-    // }
+    for (i = 0; i < n; i++)
+    {
+        for (j = i + 1; j < n; j++)
+        {
+            if (Student[i].sscGPA < Student[j].sscGPA)
+            {
+                temp = Student[i].sscGPA;
+                Student[i].sscGPA = Student[j].sscGPA;
+                Student[j].sscGPA = temp;
+                strcpy(tempName, Student[i].name);
+                strcpy(Student[i].name, Student[j].name);
+                strcpy(Student[j].name, tempName);
+                tempID = Student[i].id;
+                Student[i].id = Student[j].id;
+                Student[j].id = tempID;
+            }
+        }
+    }
     double last = -1.0;
     for (i = 0; i < n; i++)
     {
@@ -192,7 +162,24 @@ void findSameHSCCGpaHolders(Student *Student, int n)
     int tempID;
     fprintf(fp, "\n...HSC GPA ANALYSIS...\n");
     fprintf(fp, "============================\n");
-    
+    for (i = 0; i < n; i++)
+    {
+        for (j = i + 1; j < n; j++)
+        {
+            if (Student[i].hscGPA < Student[j].hscGPA)
+            {
+                temp = Student[i].hscGPA;
+                Student[i].hscGPA = Student[j].hscGPA;
+                Student[j].hscGPA = temp;
+                strcpy(tempName, Student[i].name);
+                strcpy(Student[i].name, Student[j].name);
+                strcpy(Student[j].name, tempName);
+                tempID = Student[i].id;
+                Student[i].id = Student[j].id;
+                Student[j].id = tempID;
+            }
+        }
+    }
     double last = -1.0;
     for (i = 0; i < n; i++)
     {
@@ -256,6 +243,7 @@ void printAllInformations(Student *Student){
     
   
     fclose(fptr);
+    printf("\n*********************************** Thank You ***********************************\n\t\t\tCreated By Fatin Ishraq\n");
     }
 
 int main()
@@ -266,11 +254,10 @@ int main()
     Student1 = (Student *)calloc(n, sizeof(Student));
 
     readInformations(Student1);
-    sortArray(Student1,n);
     findSameTotalGPAHolders(Student1, 5);
-  
+    readInformations(Student1);
     findSameSSCGpaHolders(Student1, 5);
-    
+    readInformations(Student1);
     findSameHSCCGpaHolders(Student1, 5);
 
     char source[] = "total_gpa_analysis.txt",destination[] = "students.txt";
@@ -279,5 +266,6 @@ int main()
     appendFiles("hsc_gpa_analysis.txt", destination);
    
     printAllInformations(Student1);
+    
     return 0;
 }
