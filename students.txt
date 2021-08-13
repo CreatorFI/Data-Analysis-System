@@ -1,0 +1,30 @@
+
+id 1 
+name abc  
+total_gpa 9.550000   
+hsc 4.550000   
+ssc_gpa 5.000000 
+
+id 2 
+name def  
+total_gpa 9.550000   
+hsc 5.000000   
+ssc_gpa 4.550000 
+
+id 3 
+name xyz  
+total_gpa 9.60000   
+hsc 5.000000   
+ssc_gpa 4.60000
+
+id 4 
+name pqr  
+total_gpa 10  
+hsc 5.000000   
+ssc_gpa 5.0000 
+
+id 5 
+name ali  
+total_gpa 9.670000   
+hsc 4.670000   
+ssc_gpa 5.0000
